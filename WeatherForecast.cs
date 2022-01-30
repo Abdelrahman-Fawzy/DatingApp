@@ -1,5 +1,3 @@
-using System;
-
 namespace DatingApp
 {
     public class WeatherForecast
