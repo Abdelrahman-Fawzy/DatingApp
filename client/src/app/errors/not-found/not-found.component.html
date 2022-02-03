@@ -1,0 +1,6 @@
+<div class="container">
+  <h1>Page Not Found</h1>
+  <p>404</p>
+  <button class="btn btn-info" routerLink="/members" *ngIf="this.accountService.currentUser$ | async">Return Members Page</button>
+  <button class="btn btn-info" routerLink="/" *ngIf="!(this.accountService.currentUser$ | async)">Return Home Page</button>
+</div>

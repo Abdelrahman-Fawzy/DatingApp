@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using DatingApp.Extensions;
+using DatingApp.Exceptions;
 
 namespace DatingApp
 {
@@ -37,10 +38,12 @@ namespace DatingApp
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DatingApp v1"));
             }
+
+            app.UseMiddleware<MiddleWareException>();
 
             app.UseHttpsRedirection();
 

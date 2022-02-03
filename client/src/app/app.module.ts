@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -17,6 +17,10 @@ import { MembersListComponent } from './members/members-list/members-list.compon
 import { MembersDetailsComponent } from './members/members-details/members-details.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
+import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
 
 
 @NgModule({
@@ -28,7 +32,10 @@ import { MessagesComponent } from './messages/messages.component';
     MembersListComponent,
     MembersDetailsComponent,
     ListsComponent,
-    MessagesComponent
+    MessagesComponent,
+    TestErrorsComponent,
+    NotFoundComponent,
+    ServerErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +47,11 @@ import { MessagesComponent } from './messages/messages.component';
     FontAwesomeModule,
     SharedModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: ErrorInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

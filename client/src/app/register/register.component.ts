@@ -23,7 +23,9 @@ export class RegisterComponent implements OnInit {
       this.cancel();
     }, error => {
       console.log(error)
-      this.toastr.error(error.errors)
+      error.forEach(element => {
+        this.toastr.error(element)
+      });
     })
   }
 
