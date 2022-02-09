@@ -38,7 +38,7 @@ namespace DatingApp.Controllers
             return _mapper.Map<MemberDto>(user);
         }
 
-        [HttpGet("userByName/{userName}")]
+        [HttpGet("{userName}")]
         public async Task<ActionResult<MemberDto>> GetUserByUserName(string userName)
         {
             var user = await _users.GetUserByUserNameAsync(userName);

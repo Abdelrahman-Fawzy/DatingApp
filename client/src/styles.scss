@@ -6,3 +6,17 @@
 .toast-bottom-center {
   width: 100% !important;
 }
+
+.nav-tabs .nav-link {
+  border: none;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+  border: none;
+  border-bottom: 4px solid #E95420 !important;
+}
+
+.nav-tabs .nav-link:hover, .nav-link:focus {
+  border: none;
+  border-bottom: 4px solid #ea805c8a !important;
+}
