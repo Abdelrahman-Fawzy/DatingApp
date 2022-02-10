@@ -1,0 +1,65 @@
+<div class="row" *ngIf="member">
+  <div class="col-md-4">
+    <h1>Your Profile</h1>
+  </div>
+  <div class="col-md-8">
+    <div class="alert alert-info" *ngIf="editForm?.dirty"> <strong>Information: </strong> you have made changes .. unsave will make data lost</div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <img class="card-img-top img-thumbnail" src="{{member.photoUrl || '../../../../../assets/user.png'}}" alt="{{member.knownAs}}">
+      <div class="card-body">
+        <div>
+          <strong>Location:</strong>
+          <p>{{member.city}}, {{member.country}}</p>
+        </div>
+        <div>
+          <strong>Age:</strong>
+          <p>{{member.age}}</p>
+        </div>
+        <div>
+          <strong>Last Active:</strong>
+          <p>{{member.lastActive}}</p>
+        </div>
+        <div>
+          <strong>Member Since:</strong>
+          <p>{{member.createdOn}}</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button [disabled]="!editForm?.dirty" form="editForm" class="btn btn-success btn-block">Save Changes</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>About {{member.knownAs}}</a>
+        <ng-template ngbNavContent>
+          <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
+            <label>Description</label>
+            <textarea [(ngModel)]="member.introduction" class="form-control" name="introduction" rows="6"></textarea>
+            <label class="mt-2">Looking For</label>
+            <textarea [(ngModel)]="member.lookingFor" class="form-control" name="lookingFor" rows="6"></textarea>
+            <label class="mt-2">Interests</label>
+            <textarea [(ngModel)]="member.interests" class="form-control" name="interests" rows="6"></textarea>
+            <div class="form-inline mt-4">
+              <label class="mr-2">city</label>
+              <input [(ngModel)]="member.city"  class="form-control mr-4" type="text" name="city">
+              <label class="mr-2">country</label>
+              <input [(ngModel)]="member.country" class="form-control" type="text" name="country">
+            </div>
+          </form>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink>Photos</a>
+        <ng-template ngbNavContent>
+          <p>photos will go here</p>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="mt-4"></div>
+  </div>
+</div>

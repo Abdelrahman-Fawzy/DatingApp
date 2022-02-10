@@ -1,3 +1,4 @@
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { SharedModule } from './modules/shared/shared.module';
 import { NgModule } from '@angular/core';
@@ -24,7 +25,9 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { NgxGalleryModule } from 'ngx-gallery-9';
+import { NgxSpinnerModule } from "ngx-spinner";
 import 'hammerjs';
+import { MembersEditComponent } from './members/members-edit/members-edit.component';
 
 
 
@@ -41,7 +44,8 @@ import 'hammerjs';
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MembersEditComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,8 @@ import 'hammerjs';
     FormsModule,
     FontAwesomeModule,
     SharedModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    NgxSpinnerModule
   ],
   providers: [
     {
@@ -63,6 +68,11 @@ import 'hammerjs';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true
     }],
   bootstrap: [AppComponent]

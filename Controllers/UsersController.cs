@@ -6,6 +6,7 @@ using DatingApp.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace DatingApp.Controllers
 {
@@ -43,6 +44,21 @@ namespace DatingApp.Controllers
         {
             var user = await _users.GetUserByUserNameAsync(userName);
             return _mapper.Map<MemberDto>(user);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(updateMemberDTO member)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _users.GetUserByUserNameAsync(username);
+
+            _mapper.Map(member, user);
+
+            _users.Update(user);
+
+            if (await _users.SaveChangesAsync()) return NoContent();
+
+            return BadRequest("Failed To Update");
         }
     }
 }

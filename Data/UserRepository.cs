@@ -41,7 +41,8 @@ namespace DatingApp.Data
 
         void IUserRepository.Update(AppUser user)
         {
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Users.Update(user);
+            //_context.Entry(user).State = EntityState.Modified;
         }
     }
 }
